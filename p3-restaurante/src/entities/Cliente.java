@@ -5,21 +5,22 @@
 
 package entities;
 
-public class Cliente {
-	private String nome;
+import java.util.Random;
+
+public class Cliente extends Pessoa{
+	private static Random r = new Random();
 	private Pedido pedido;
+	private boolean atendido, atendidoCaixa;
+
+	public static final String[] nomes = new String[] {
+		"Gustavo", "Lara", "Marcos", "Rebeca", "Victor", "Lucas", "Soares", "Danielly", "Oliveira", "Cristina", "Emanuel", "Digian",
+		"Silva", "Costa", "Carvalho", "Moura", "Santos"
+	};
 	
 	public Cliente() {
+		super(nomes[r.nextInt(nomes.length)], r.nextInt(999));
 		pedido = new Pedido();
-	}
-	
-	public Cliente(String nome) {
-		this.nome = nome;
-		pedido = new Pedido();
-	}
-	
-	public String getNome() {
-		return nome;
+		//atendido = false;
 	}
 	
 	public Pedido getPedido() {
@@ -30,8 +31,24 @@ public class Cliente {
 		pedido.addPedido(c);
 	}
 
+	public boolean getAtendido(){
+		return atendido;
+	}
+
+	public void setAtendido(boolean atendido){
+		this.atendido = atendido;
+	}
+
+	public boolean getAtendidoCaixa(){
+		return atendidoCaixa;
+	}
+
+	public void setAtendidoCaixa(boolean atendidoCaixa){
+		this.atendidoCaixa = atendidoCaixa;
+	}
+
 	@Override
 	public String toString() {
-		return nome;
+		return getNome();
 	}
 }
