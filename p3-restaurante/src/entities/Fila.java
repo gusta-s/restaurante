@@ -17,23 +17,47 @@ public class Fila{
 		return fila;
 	}
 
-	public void popFila() {
-		if (!fila.isEmpty())
+	public Cliente popFila() {
+		Cliente c;
+		if (!fila.isEmpty()){
+			c = fila.get(0);
 			fila.remove(0);
-		else {
-			System.out.println("Fila vazia!");
+			return c;
 		}
+		System.out.println("Fila vazia!");
+		return null;
 	}
 	
 	public void addFila(Cliente cliente) {
 		fila.add(cliente);
 	}
 	
-	public void mostarFila() {
-		System.out.print("Fila: [");
+	public void mostrarFila() {
+		System.out.print("[ ");
 		for (Cliente cliente : fila) {
-			System.out.print(" " + cliente + " ");
+			if (cliente != null)	
+				System.out.print(cliente + " ");
 		}
 		System.out.print("]\n");
+	}
+	
+	public String mostrarFila(boolean x) {
+		String pessoasNaFila = "";
+		int cont = 0;
+		for (Cliente cliente : fila) {
+			if (cliente instanceof Object){
+				cont++;	
+				pessoasNaFila += " ⬜"; //⬜👨•
+			}
+			if (cont >= 15){
+				return 	"[ " + pessoasNaFila + " . . . ][" + fila.size() + "]";
+			}
+		}
+		return pessoasNaFila != "" ? "[ " + pessoasNaFila + " ][" + fila.size() + "]" : "Fila Vazia!";
+	}
+	
+	@Override
+	public String toString() {
+		return mostrarFila(true);
 	}
 }
