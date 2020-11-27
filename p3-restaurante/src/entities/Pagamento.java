@@ -12,13 +12,13 @@ public class Pagamento implements IPagamento{
 
 	@Override
 	public void realizarPagamento(float valor) {
-		System.out.printf("Pagamento de R$ %.2f realizado com sucesso!\n", valor);
+		//System.out.printf("Pagamento de R$ %.2f realizado com sucesso!\n", valor);
 	}
 
 	@Override
 	public void realizarPagamento(float valor, float desconto) {
 		valor -= valor * (desconto / 100);
-		System.out.printf("Pagamento de R$ %.2f realizado com sucesso [desconto de %.1f%%]!\n", valor, desconto);	
+		//System.out.printf("Pagamento de R$ %.2f realizado com sucesso [desconto de %.1f%%]!\n", valor, desconto);	
 	}
 	
 }
