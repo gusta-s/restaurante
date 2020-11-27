@@ -7,22 +7,15 @@ package entities;
 
 import java.util.Random;
 
-import application.Restaurante;
-
 public class Garcom extends Empregado{
 	
 	private Cardapio cardapio = new Cardapio();
 	private Random r = new Random();
 	
-	private Restaurante restaurante;
 	private Mesa mesa;
 	private Pedido pedido;
 	
 	public Garcom() {
-	}
-	
-	public Garcom(Restaurante restaurante) {
-		this.restaurante = restaurante;
 	}
 
 	public Pedido getPedido() {
@@ -37,34 +30,19 @@ public class Garcom extends Empregado{
 		this.mesa = mesa;
 	}
 	
-	public void percorrerMesas() {
-		for (Mesa mesa : restaurante.getMesas()) {
-			System.out.println("==========================================================================");
-			if (!mesa.getOcupado() || !mesa.validarMesa()) {	
-				System.out.println(mesa);
-				this.setMesa(mesa);
-				mesa.setOcupado(true);
-				
-				for (Cliente c : mesa.getLugares()) {
-					if (c != null) {
-						System.out.printf("(Cliente: %s)\n", c.getNome());
-						for (int i=0; i<r.nextInt(3)+1; i++)
-							c.getPedido().addPedido(cardapio.gerarComidaAleatoria());
-					}
-				}
+	public void percorrerMesas(Restaurante restaurante){
+		Mesa mesa = restaurante.getMesas().get(r.nextInt(restaurante.getMesas().size()));
+		if (!mesa.getOcupado()) {	
+			mesa.setOcupado(true);
+			setMesa(mesa);
+			
+			Cliente c = mesa.getLugares()[r.nextInt(mesa.getLugares().length)];
+			if ((c instanceof Object) && (!c.getAtendido())){
+				c.setAtendido(true);
+				for (int i=0; i<r.nextInt(3)+1; i++)
+						c.getPedido().addPedido(cardapio.gerarComidaAleatoria());
 			}
-			System.out.println("==========================================================================\n");
 		}
+		mesa.setOcupado(false);
 	}
-	
-	public void mostrarPedidos(Cliente cliente) {
-		System.out.println("--------------------------------------");
-		System.out.println("Pedidos:");
-		for (Comida comida : cliente.getPedido().getPedidos()) {
-			System.out.format("Pedido: %s\nPco Unid.: %.2f\nQuantidade: %d\nPco Total: %.2f\n", comida.getNome(), comida.getPreco(), comida.getQuantidade(), comida.precoTotal());
-		}
-		System.out.format("\nTotal: %.2f \n", cliente.getPedido().getPrecoTotal());
-		System.out.println("--------------------------------------");
-	}
-	
 }
