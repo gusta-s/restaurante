@@ -35,8 +35,7 @@ public class Cardapio {
 			comida = new Comida(nomes[opcao], precos[opcao]);
 		else
 			comida = new Comida(nomes[opcao], precos[opcao], r.nextInt(4)+1);
-		
-		System.out.println(comida);
+
 		return comida;
 	}
 }
