@@ -11,6 +11,9 @@ public class Mesa {
 	private int lugaresVagos;
 	private int numero;
 	private boolean ocupado;
+
+	public Mesa(){
+	}
 	
 	public Mesa(int numero) {
 		lugaresVagos = 4;
@@ -41,41 +44,33 @@ public class Mesa {
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	
+
+	public void levantarMesa(){
+		if (lugaresVagos < 4) lugares[lugaresVagos++] = null;
+	}
+
 	public boolean validarMesa() {
 		return (lugaresVagos <= 4 && lugaresVagos > 0) ? true : false;
 	}
 	
-	public void addCliente(Cliente cliente, int lugar) {
-		if (validarMesa()) {
-			lugaresVagos--;
-			lugares[lugar] = cliente;
-		}		
-	}
-	
 	public void addCliente(Cliente cliente) {
 		if (validarMesa()) {
-			lugaresVagos--;
-			lugares[lugaresVagos] = cliente;
+			lugares[--lugaresVagos] = cliente;
 		}
 	}
 	
-	public void esvaziarMesa() {
-		for (int i=0; i<lugares.length; i++)
-			lugares[i] = null;
-	}
-	
-	public void mostrarClientesNaMesa() {
-		System.out.printf("Cliente(s) na mesa(%d): \n", this.numero);
+	public String visualizacaoPontos(boolean x) {
+		String dots = "";
 		for (Cliente cliente : lugares) {
-			if (cliente != null)	
-				System.out.println(cliente.getNome());
+			if (cliente instanceof Object)	
+				dots += " ⬜"; //⬜👨•
 		}
+		return "[" + dots + " ]";
 	}
 
 	@Override
 	public String toString() {
-		return "Mesa <Lugares Vazios: " + lugaresVagos + ", No: " + numero + ">";
+		return "Mesa <Lugares Vazios: " + lugaresVagos + ", No: " + numero + ">  " + visualizacaoPontos(true);
 	}
 	
 }
