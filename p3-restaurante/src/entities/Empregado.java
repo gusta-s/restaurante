@@ -7,30 +7,17 @@ package entities;
 
 import java.util.Random;
 
-public class Empregado {
+public class Empregado extends Pessoa{
 	
 	private static final String[] nomes = new String[] {"Ritinha", "Rubinho", "Bibi Perigosa", "Eurico"};
-	
-	private Random r = new Random();
-	private String nome;
-	private int id;
+	private static Random r = new Random();
 	
 	public Empregado() {
-		nome = nomes[r.nextInt(nomes.length)];
-		id = r.nextInt(999);
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public String getNome() {
-		return nome;
+		super(nomes[r.nextInt(nomes.length)], r.nextInt(999));
 	}
 
 	@Override
 	public String toString() {
-		return "Atendente <Nome: " + nome + ", ID: " + id + ">";
+		return "Atendente <Nome: " + getNome() + ", ID: " + getID() + ">";
 	}
-	
 }
